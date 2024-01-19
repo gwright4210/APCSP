@@ -1,0 +1,39 @@
+class Upgrade:
+    def __init__(self, cost, multiplier):
+        self.cost = cost
+        self.multiplier = multiplier
+
+class CookieClicker:
+    def __init__(self):
+        self.cookies = 0
+        self.multiplier = 1
+        self.upgrades = [Upgrade(10, 2), Upgrade(50, 3)]
+
+    def click_cookie(self):
+        self.cookies += self.multiplier
+        print(f"You have {self.cookies} cookies.")
+
+    def buy_upgrade(self, upgrade_index):
+        upgrade = self.upgrades[upgrade_index]
+        if self.cookies >= upgrade.cost:
+            self.cookies -= upgrade.cost
+            self.multiplier *= upgrade.multiplier
+            print(f"Bought upgrade {upgrade_index + 1}! Your multiplier is now {self.multiplier}.")
+        else:
+            print(f"You can't afford upgrade {upgrade_index + 1}.")
+
+def main():
+    game = CookieClicker()
+    print("Welcome to Cookie Clicker! Press 'c' to click the cookie. Press '1' or '2' to buy upgrades.")
+    while True:
+        c = input()
+        if c == 'c':
+            game.click_cookie()
+        elif c == '1':
+            game.buy_upgrade(0)
+        elif c == '2':
+            game.buy_upgrade(1)
+            game.cookies = 0
+
+if __name__ == "__main__":
+    main()
